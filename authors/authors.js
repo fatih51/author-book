@@ -3,6 +3,8 @@ const router = express.Router();
 const dbConfig = require("../db/db.config")
 const { findData,addData } = require("../db/db")
 
+const { authController } = require("../authentication/controller")
+
 
 router.use(express.json())
 
@@ -40,7 +42,7 @@ router.get("/author/:id/details", (req,res)=>{
     });
 })
 
-router.post("/add-author",(req,res)=>{
+router.post("/add-author",[authController],(req,res)=>{
     const { ID,age,name } = req.body
     const query = `INSERT INTO ${dbConfig.authors} (ID,name,age) VALUES ?`
     const data = [

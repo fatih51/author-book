@@ -4,7 +4,8 @@ const config = {
     password: 'root',
     database:"book-author",
     books:"books",
-    authors:"authors"
+    authors:"authors",
+    users:"users"
 }
 
 module.exports = config

@@ -10,9 +10,9 @@ let con = mysql.createConnection({
 });
   
 const connect = con.connect((err)=> {
-        if (err) throw err;
-        console.log('MySQL bağlantısı başarıyla gerçekleştirildi.');
-    });
+    if (err) throw err;
+    console.log('MySQL bağlantısı başarıyla gerçekleştirildi.');
+});
 
 function findData(query, callback)
 {

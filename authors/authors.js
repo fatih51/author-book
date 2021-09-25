@@ -33,6 +33,7 @@ router.get("/author/:id/details", (req,res)=>{
     ${dbConfig.books}.authorId AS AuthorCode,
     ${dbConfig.books}.price AS BookPrice,
     ${dbConfig.books}.name AS BookName
+    FROM ${dbConfig.authors}
     INNER JOIN ${dbConfig.books}
     WHERE ${id} = ${dbConfig.books}.authorId AND ${id} = ${dbConfig.authors}.ID`
 

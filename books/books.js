@@ -17,7 +17,15 @@ router.get('/books', function (req, res) {
 
 router.get('/book/:id', function (req, res) {
     const { id } = req.params
-    const query = `SELECT * FROM ${dbConfig.books} WHERE ID = ${id}`
+    const query = `SELECT ${dbConfig.users}.username,
+    ${dbConfig.books}.ID,
+    authorId,
+    price,
+    name
+    FROM ${dbConfig.books} 
+    INNER JOIN ${dbConfig.users} 
+    WHERE ${dbConfig.books}.createdBy=${dbConfig.users}.ID AND ${dbConfig.books}.ID=${id}`
+
     findData(query, function(err,data){
         if (err) throw err
         res.send({"data":data})
@@ -41,10 +49,10 @@ router.get("/book/:id/details", (req,res)=>{
 })
 
 router.post("/add-book",[authController],(req,res)=>{
-    const { price,name } = req.body
-    const query = `INSERT INTO ${dbConfig.books} (authorId,price,name) VALUES ?`
+    const { authorId,price,name, } = req.body
+    const query = `INSERT INTO ${dbConfig.books} (authorId,createdBy,price,name) VALUES ?`
     const data = [
-        [parseInt(req.session.UserID),price,name]
+        [authorId,parseInt(req.session.UserID),price,name]
     ]
     addData(query,data,function(err,stat){
         if (err) throw err
